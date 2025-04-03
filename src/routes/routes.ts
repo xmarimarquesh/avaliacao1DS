@@ -1,11 +1,11 @@
 import { Express } from 'express';
 import express from 'express'
-import task from './task.ts'
-import user from './auth.ts'
+import pedido from './pedido.ts'
+import cliente from './cliente.ts'
 
 export default function (app: Express) {
     app
     .use(express.json())
-    .use('/api/auth', user)
-    .use('/api/task', task)
+    .use('/api/customers', cliente)
+    .use('/api/carriers', pedido)
 }
