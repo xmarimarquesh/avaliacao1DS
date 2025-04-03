@@ -24,17 +24,20 @@ class ClienteService {
 
     }
 
-    static async login(req: Request, res: Response): Promise<any> {
-        const { email, password } = req.body;
+    static async login(usuario: ClienteDto): Promise<any> {
+
+        const email = usuario.email;
+        const password = usuario.password;
+
         const user = await Cliente.findOne({email});
         if(!user)
-            return res.status(400).send({ message: "Invalid Email or password"});
+            return false;
         
         var bytes = crypto.AES.decrypt(user.password, process.env.SECRET as string);
         const passwordDecrypted = bytes.toString(crypto.enc.Utf8);
 
         if(password !== passwordDecrypted) {
-            return new Error("Usuário e/ou senha inválidos")
+            return false;
         }
 
         const secret = process.env.SECRET;
@@ -50,7 +53,7 @@ class ClienteService {
                     expiresIn: '2 days'
                 }
             )
-            return res.status(200).send({token: token})
+            return true
         }
     }
 }

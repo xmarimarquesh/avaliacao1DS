@@ -11,7 +11,7 @@ const produtoSchema: Schema = new Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
     estoque: { type: String, required: true },
-    valor: { type: Float64Array, required: true },
+    valor: { type: Number, required: true },
 });
 
 const Produto = mongoose.model<IProduto>('Produto', produtoSchema);

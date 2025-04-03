@@ -13,9 +13,9 @@ class ClienteController {
 
         console.log("clienteeeeee:",cliente)
 
-        const capturedPokemon = await ClienteService.register(cliente);
+        const ok = await ClienteService.register(cliente);
 
-        if(capturedPokemon){
+        if(ok){
             return res.status(200).json({ message: 'Cadastro efetuado!' });
         }
 
@@ -23,33 +23,27 @@ class ClienteController {
     }
 
     static async login(req: Request, res: Response): Promise<any> {
-        const { email, password } = req.body;
-        const user = await Cliente.findOne({email});
-        if(!user)
-            return res.status(400).send({ message: "Invalid Email or password"});
-        
-        var bytes = crypto.AES.decrypt(user.password, process.env.SECRET as string);
-        const passwordDecrypted = bytes.toString(crypto.enc.Utf8);
+        const cliente = req.body;
 
-        if(password !== passwordDecrypted) {
-            return new Error("Usuário e/ou senha inválidos")
+        const ok = await ClienteService.login(cliente);
+
+        if(ok){
+            return res.status(200).json({ message: 'Cadastro efetuado!' });
         }
 
-        const secret = process.env.SECRET;
+        return res.status(400).json({ message: 'Erro ao cadastrar' });
+    }
 
-        if(secret)
-        {
-            const token = jwt.sign(
-                {
-                    id: user.id
-                },
-                secret,
-                {
-                    expiresIn: '2 days'
-                }
-            )
-            return res.status(200).send({token: token})
+    static async findOrders(req: Request, res: Response): Promise<any> {
+        const id = req.params;
+
+        const orders = 1;
+
+        if(orders){
+            return res.status(200).json({ message: 'Cadastro efetuado!' });
         }
+
+        return res.status(400).json({ message: 'Erro ao cadastrar' });
     }
 }
 
