@@ -1,9 +1,9 @@
 import express, { Request, Response, Router } from 'express';
 const router: Router = express.Router();
-import TransportadoraService from '../services/ClienteService.ts'
+import TransportadoraController from '../controllers/TransportadoraController.ts';
 
-router.post("/carriers", );
-router.post("/login", );
-router.get("/customers/:id/deliveries", );
+router.post("/", TransportadoraController.register);
+router.post("/login", TransportadoraController.login);
+router.get("/:id/deliveries", TransportadoraController.deliveries);
 
 export default router;

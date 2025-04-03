@@ -4,7 +4,7 @@ import ClienteController from '../controllers/ClienteController.ts'
 
 router.post("/", ClienteController.register);
 router.post("/login", ClienteController.login);
-router.get("/:id/orders", );
+router.get("/:id/orders", ClienteController.findOrders);
 router.delete("/:id", );
 
 export default router;

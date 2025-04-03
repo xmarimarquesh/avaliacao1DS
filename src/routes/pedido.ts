@@ -1,9 +1,9 @@
 import express, { Request, Response, Router } from 'express';
 const router: Router = express.Router();
-// import PedidoService from "../services/PedidoService.ts";
+import PedidoController from '../controllers/PedidoController.ts';
 
-router.get("/", );
-router.post("/", );
-router.delete("/:id", );
+router.get("/", PedidoController.findOrdersByStatus);
+router.post("/", PedidoController.newOrder);
+router.put("/:id/cancel", PedidoController.putOrder);
 
 export default router;

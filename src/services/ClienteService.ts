@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto-js";
 import dotenv from "dotenv";
 import ClienteDto from "../dto/Cliente.ts";
+import Pedido from "../models/Pedido.ts";
 
 dotenv.config();
 
@@ -54,6 +55,23 @@ class ClienteService {
                 }
             )
             return true
+        }
+    }
+
+    static async deleteClient(id: number) {
+        try {
+            const orders = await Pedido.find({where:{IDCliente:id}});
+            if(orders.length<=0){
+                const prod = await Cliente.findByIdAndDelete(id);
+                if (!prod) {
+                    return false;
+                }
+                return true;
+            }
+            
+            return true;
+        } catch (error) {
+            return false;
         }
     }
 }

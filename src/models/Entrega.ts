@@ -5,7 +5,8 @@ interface IEntrega extends Document {
     dateInicio: Date;
     dateFim: Date;
     status: string;
-    IDPedido: number
+    IDPedido: number;
+    IDTransportadora: number
 }
 
 const entregaSchema: Schema = new Schema({
@@ -13,7 +14,8 @@ const entregaSchema: Schema = new Schema({
     dateInicio: { type: String, required: true },
     dateFim: { type: String, required: true },
     status: { type: String, required: true },
-    IDPedido: { type: Int32Array, required: true },
+    IDPedido: { type: Number, required: true },
+    IDTransportadora: { type: Number, required: true },
 });
 
 const Entrega = mongoose.model<IEntrega>('Entrega', entregaSchema);
